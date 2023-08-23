@@ -22,9 +22,15 @@ const UserSchema = new mongoose.Schema({
   // ],
   cart: [
     {
-      product: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
+      productId: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
       quantity: {
         type: Number,
+        required: true,
+        min: [1, "Quantity can not be less then 1."],
+      },
+      price: {
+        type: Number,
+        required: true,
       },
     },
   ],
