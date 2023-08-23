@@ -9,10 +9,17 @@ const OrderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  products: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "product"
-  }]
+  products: [
+    {
+      product: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
+      quantity: {
+        type: Number,
+      },
+    },
+  ],
+  totalCost: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("order", OrderSchema);

@@ -14,16 +14,18 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  orderHistory: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "order",
-    },
-  ],
+  // orderHistory: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "order",
+  //   },
+  // ],
   cart: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "product",
+      product: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
+      quantity: {
+        type: Number,
+      },
     },
   ],
 });
