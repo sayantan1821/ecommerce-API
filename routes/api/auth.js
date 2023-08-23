@@ -60,13 +60,14 @@ router.post(
         },
       };
 
+      delete user["password"]
       jwt.sign(
         payload,
         process.env.JWT_SECRET,
         { expiresIn: "5 days" },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ userId: user._id, token });
         }
       );
     } catch (err) {
@@ -117,7 +118,7 @@ router.post(
           { expiresIn: '5 days' },
           (err, token) => {
             if (err) throw err;
-            res.json({ token });
+            res.json({ userId: user._id, token });
           }
         );
       } catch (err) {

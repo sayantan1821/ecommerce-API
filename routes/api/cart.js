@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
-
+const validObject = require("../../middleware/validObject")
 const User = require("../../models/User");
 const Product = require("../../models/Product");
 router.get("/getUserCartDetails", auth, async (req, res) => {
@@ -17,7 +17,7 @@ router.get("/getUserCartDetails", auth, async (req, res) => {
   }
 });
 
-router.post("/addToCart", auth, async (req, res) => {
+router.post("/addToCart", [auth, validObject("productId")], async (req, res) => {
   const { productId, quantity } = req.body;
   try {
     let product = await Product.findOne({ _id: req.body.productId });
@@ -43,7 +43,7 @@ router.post("/addToCart", auth, async (req, res) => {
   }
 });
 
-router.get("/removeFromCart", auth, async (req, res) => {
+router.get("/removeFromCart", [auth, validObject("productId")], async (req, res) => {
   try {
     let user = await User.findOne({ _id: req.user.id }).select("-password");
 

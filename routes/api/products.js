@@ -3,7 +3,8 @@ const router = express.Router();
 const auth = require("../../middleware/auth")
 
 const Category = require("../../models/Category")
-const Product = require("../../models/Product")
+const Product = require("../../models/Product");
+const validObject = require("../../middleware/validObject")
 router.get(
   '/getCategories',
   auth,
@@ -41,7 +42,7 @@ router.get(
 
 router.get(
   '/getProductById',
-  auth,
+  [auth, validObject("_id")],
   async (req, res) => {
     try {
       let product = await Product.find(req.body);
